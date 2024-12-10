@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRSYPXB0MQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NRSYPXB0MQ');
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM Desa Jangkang</title>
+    <link rel="icon" href="https://portal.beltim.go.id/wp-content/uploads/2021/04/logoBeltim.png" type="image/x-icon">
+    <style>
+        /* Jam dan Tanggal */
+        body {
+            background-color: #f0f0f0;
+            /* Warna latar belakang halaman */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            /* Rata tengah teks */
+            padding: 10px;
+            /* Ruang dalam halaman */
+        }
+
+        .datetime {
+            font-size: 26px;
+            /* Ukuran font untuk tanggal dan waktu */
+            margin-bottom: 10px;
+            /* Jarak antara tanggal dan waktu dengan elemen lain */
+            background-color: #3498db00;
+            /* Warna latar belakang */
+            color: rgb(0, 0, 0);
+            /* Warna teks */
+            padding: 5px;
+            /* Ruang dalam teks */
+            border-radius: 5px;
+            /* Sudut membulat */
+            font-weight: bold;
+            /* Mengatur teks menjadi bold */
+        }
+    </style>
+    <style>
+        /* Stail isi */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            background-image: url('https://i.pinimg.com/originals/5f/8a/3f/5f8a3fed8338cb358458759b55d61c77.jpg');
+            background-size: cover;
+            /* Mengatur gambar latar belakang agar menutupi seluruh area */
+            background-position: center;
+            /* Menempatkan gambar di tengah */
+            background-repeat: no-repeat;
+            /* Mencegah pengulangan gambar */
+            /*overflow: hidden; /* Menghindari scrollbar */
+        }
+
+        .container {
+            margin-top: 10px;
+            max-width: auto;
+            margin: auto;
+            padding: 5px;
+        }
+
+        .marquee {
+            white-space: nowrap;
+            /* Menjaga teks dalam satu baris */
+            overflow: hidden;
+            /* Menghindari teks yang keluar dari kontainer */
+            position: relative;
+            /* Untuk positioning teks */
+            background-color: #000639ea;
+            /* Warna latar belakang */
+            color: white;
+            /* Warna teks */
+            padding: 5px;
+            /* Ruang dalam teks */
+            font-size: 20px;
+            /* Ukuran font */
+            border-radius: 5px;
+            /* Sudut membulat */
+        }
+
+        .marquee span {
+            display: inline-block;
+            /* Menjaga elemen agar sesuai dengan ukuran konten */
+            animation: scroll 15s linear infinite;
+            /* Menerapkan animasi */
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+                /* Mulai dari luar kanan */
+            }
+
+            100% {
+                transform: translateX(-100%);
+                /* Bergerak ke luar kiri */
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 10px;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .bold-text {
+            font-weight: bold;
+        }
+
+        .logo {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .logo img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<div class="logo">
+    <img src="https://portal.beltim.go.id/wp-content/uploads/2021/04/logoBeltim.png" alt="Logo">
+</div>
+<div class="container">
+    <h1 class="bold-text">Selamat Datang di Desa Jangkang</h1>
+</div>
+<div class="container">
+    <div class="datetime" id="datetime"></div>
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            document.getElementById('datetime').innerText = now.toLocaleString('id-ID', options);
+        }
+
+        setInterval(updateDateTime, 1000); // Memperbarui setiap detik
+        updateDateTime(); // Panggil fungsi sekali untuk menampilkan waktu awal
+    </script>
+</div>
+<Div class="container">
+    <div class="marquee">
+        <span>Selamat datang Lending Page Jangkang Situs ini dibuat guna menjadi Lawang/pintu akses link/situs yang
+            bertujuan merangkum banyaknya link yang ada di lingkungan Pemerintahan Desa pada Era Digitalisasi</span>
+    </div>
+</Div>
+<div class="container">
+    <p class="bold-text">Menu Official & Plan Desa Jangkang </p>
+    
+    <a href="http://jangkang-beltim.desa.id/" Link="_blank">Website Resmi Desa Jangkang</a>
+    <a href="PetaDesa.html" Link="_blank">Peta Interaktif Desa Jangkang</a>
+  
+</div>
+<div class="container">
+    <p class="bold-text">Perencanaan, Penganggara, & Pelaporan</p>
+    
+    <a href="https://www.appsheet.com/start/6c0f79a2-559b-485a-b754-eb039194a092" Link="_blank">Aplikasi Perencanaan Desa</a>
+    <a href=" https://docs.google.com/spreadsheets/d/1quqPnRHTKhBaadk1gvuEXQh4YzcgENZyus7W2JhyZCk/edit?gid=517804879#gid=517804879" Link="_blank">Perencanaan APBDes TA. 2025</a>
+   
+</div>
+<div class="container">
+    <p class="bold-text">Menu Administarasi Umum</p>
+
+    <a href="https://onedrive.live.com/edit?id=40E8730762E22A25!106&resid=40E8730762E22A25!106&ithint=file%2cxlsx&authkey=!ANkKt503BbC8h2U&wdo=2&cid=40e8730762e22a25" link="_blank">Nomor Surat keluar</a>
+    <a href="https://1drv.ms/x/c/2f0d3b227cba522d/ES1SunwiOw0ggC95AAAAAAABhuDJEeXmO56-F_v-5nUNxQ?e=OPQcTF" link="_blank">Nomor Undangan</a>
+    <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!124&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VTMVN1bndpT3cwZ2dDOThBQUFBQUFBQnliQzlMdUN6OGhveXlYZU0wOXZ3S2c_ZT1HcG1QZ1E&resid=2F0D3B227CBA522D!124&wdo=2" link="_blank">Nomor Berita Acara</a>
+    <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VjQ3dJV2dOQTh4QnBsYm5wYUxLX1FNQkRFV1JMeHVEQWcwMXdmUDZncTlocUE_ZT1QdFk5RzA&resid=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&wdo=2" link="_blank">Nomor SPPD/SPT</a>
+
+<div class="container">
+    <p class="bold-text">(Pelatihan Berbasis Digital Penguatan Kapasitas Aparatur pemerintahan Desa) </p>
+    
+    <a href="https://pamongdesa.kemendagri.go.id/home" Link="_blank">LMS Pamong Desa</a>
+</div>
+
+</div>
+<div class="container">
+    <p class="bold-text">Aplikasi yang dimandatkan</p>
+
+    <a href="https://dashboard-sdgs.kemendesa.go.id/" link="_blank">SDGs Desa</a>
+    <a href="https://sid.kemendesa.go.id/profile" link="_blank">SID Kemendesa</a>
+    <a href="https://idm.kemendesa.go.id/" link="_blank">IDM Desa</a>
+    <a href="https://sipd-ri.kemendagri.go.id/auth/login" link="_blank">SIPD RI</a>
+    <a href="https://prodeskel.binapemdes.kemendagri.go.id/app_Login/" link="_blank">PRODESKEL</a>
+    <a href="https://epdeskel.binapemdes.kemendagri.go.id/app_Login/" link="_blank">EPDESKEL</a>
+    <a href="https://simpor.beltim.go.id/login" link="_blank">SIMPOR</a>
+</div>
+<div class="container">
+    <p class="bold-text">Arsip Digital</p>
+
+    <a href="logArsipPerdes.html" link="_blank">Arsip PERDES</a>
+    <a href="commingsoon.html" link="_blank">Arsip PERKADES</a>
+    <a href="logArsipSK.html" link="_blank">Arsip SK</a>
+    <a href="logArsipSurat.html" link="_blank">Arsip Surat</a>
+    <a href="commingsoon.html" link="_blank">Arsip BA</a>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 Desa Jangkang Kec.Dendang Kab. Belitung Timur.</p>
+</div>
+</body>
+</html>

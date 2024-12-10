@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADM Desa Jangkang</title>
+<link rel="icon" href="https://portal.beltim.go.id/wp-content/uploads/2021/04/logoBeltim.png" type="image/x-icon">
+<style>
+    /*style beground belakang*/
+    body {
+        font-family: Arial, sans-serif;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+        text-align: center;
+        background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20210403/pngtree-simple-white-flat-vectors-with-diagonal-cuts-decorative-backdrops-for-your-image_597612.jpg');
+        background-size: cover; /* Mengatur gambar latar belakang agar menutupi seluruh area */
+        background-position: center; /* Menempatkan gambar di tengah */
+        background-repeat: no-repeat; /* Mencegah pengulangan gambar */
+        /*overflow: hidden; /* Menghindari scrollbar */
+    }
+    /* Style untuk elemen input */
+    .inputtext {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #f2f2f2;
+        font-size: 16px;
+        color: #333;
+        box-sizing: border-box;
+    }
+
+    /* Style untuk tombol login */
+
+    .tombol {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #015f7e;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        text-transform: uppercase;
+    }
+    .tombol:hover {
+        background-color: #2980b9;
+    }
+
+    /* Style untuk kotak login */
+    .login-box {
+        width: 350px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #1d0404;
+        border-radius: 20px;
+        background-color: #210b0b49;
+        box-sizing: border-box;
+    }
+
+    /* Style untuk logo */
+    .logo {
+        display: block;
+        margin: 0 auto 30px;
+        width: 150px;
+        height: auto;
+    }
+        /* Style untuk cancel boton a */
+    a {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #bcdb34;
+        border-radius: 10px;
+    }
+    a:hover {
+        background-color: #ff0a0a;
+    }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+    <img class="logo" src="https://portal.beltim.go.id/wp-content/uploads/2021/04/logoBeltim.png" alt="Logo">
+    <form>
+        <input type="text" name="username" placeholder="Username" class="inputtext">
+        <input type="password" name="password" placeholder="Password" class="inputtext">
+        <input type="button" value="Login" class="tombol" onclick="login()"> 
+        <a type="button"  href="index.html" link="_blank">Cancel</a>
+    </form>
+    <p>&copy;2024 Desa_Jangkang</p>
+    </div>
+    <script>
+    function login() {
+        var username = document.getElementsByName("username")[0].value;
+        var password = document.getElementsByName("password")[0].value;
+        if (username == "umumjk2023" && password == "@jkg2023") {
+
+        window.location.href = 'https://drive.google.com/drive/folders/1RhF11GIq8puUC2pBemT5s6pxEHLPv-dM';
+
+        } else {
+        alert ("Username atau password salah!");
+        }
+    }
+    </script>
+</body>
+</html>

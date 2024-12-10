@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM Desa Jangkang</title>
+    <link rel="icon" href="https://portal.beltim.go.id/wp-content/uploads/2021/04/logoBeltim.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20210403/pngtree-simple-white-flat-vectors-with-diagonal-cuts-decorative-backdrops-for-your-image_597612.jpg');
+            background-size: cover; /* Mengatur gambar latar belakang agar menutupi seluruh area */
+            background-position: center; /* Menempatkan gambar di tengah */
+            background-repeat: no-repeat; /* Mencegah pengulangan gambar */
+            /*overflow: hidden; /* Menghindari scrollbar */
+        }
+        .container {
+            margin-top: 10px;
+            max-width: auto;
+            margin:  auto;
+            padding: 5px;
+        }
+        /*untuk mengatur tampilan konten*/
+        iframe {
+            width: 100%;
+            height: 700px; /* Atur tinggi sesuai kebutuhan */
+            border: none;
+        }
+        /*Stayl navigasi*/
+        .navbar {
+            display: flex;
+            background-color: #333;
+            padding: 5px;
+        }
+        .navbar a {
+            margin: 0px; /* Margin atas dan bawah */
+            color: white;
+            padding: 5px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 22px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .navbar a.active {
+            background-color: #4CAF50;
+        }
+        /*hr style*/
+        .ket {
+            background-color: #4caf4f00; /* Warna garis */
+            margin: 0px; /* Margin atas dan bawah */
+            margin-left: auto;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 22px;
+            font-style: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="countainer">
+        <div class="navbar">
+            <a class="active" href="index.html" link="_blank">Home</a>
+            <ket class="ket">Peta Desa Jangkang</ket>
+        </div>
+        <div class="freme">
+            <iframe src="https://peta_desa_jangkang.gis.co.id/" allowfullscreen></iframe>
+        </div>
+    </div>
+</body>
+</html>
