@@ -138,27 +138,30 @@
     <div class="container">
         <h1 class="bold-text">Selamat Datang di Desa Jangkang</h1>
     </div>
-    <div class="container">
-        <div class="datetime" id="datetime"></div>
-        <script>
-            function updateDateTime() {
-                const now = new Date();
-                const options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: true
-                };
-                document.getElementById('datetime').innerText = now.toLocaleString('id-ID', options);
-            }
+<div class="container">
+    <div class="datetime" id="datetime"></div>
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            const dayName = days[now.getDay()];
+            const formattedDateTime = `${dayName}, ${now.toLocaleString('id-ID', options)}`;
+            document.getElementById('datetime').innerText = formattedDateTime;
+        }
 
-            setInterval(updateDateTime, 1000);
-            updateDateTime();
-        </script>
-    </div>
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+</div>    
     <div class="container">
         <div class="marquee">
             <span>Selamat datang Lending Page Jangkang Situs ini dibuat guna menjadi Lawang/pintu akses link/situs yang
