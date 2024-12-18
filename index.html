@@ -19,81 +19,28 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        /* Jam dan Tanggal */
+        /* General Styling */
         body {
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 10px;
-        }
-
-        .datetime {
-            font-size: 26px;
-            margin-bottom: 10px;
-            background-color: #3498db00;
-            color: rgb(254, 251, 251);
-            text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000; /* Outline Black */
-            padding: 5px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        /* Stail isi */
-        body {
-            font-family: Arial, sans-serif;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
             background-image: url('https://devonbusiness.news/wp-content/uploads/2021/05/Free-web-apps-scaled.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        .container {
-            margin-top: 10px;
-            max-width: auto;
-            margin: auto;
-            padding: 5px;
-        }
-
-        .marquee {
-            white-space: nowrap;
-            overflow: hidden;
-            position: relative;
-            background-color: #000639ea;
-            color: white;
-            padding: 5px;
-            font-size: 20px;
-            border-radius: 5px;
-        }
-
-        .marquee span {
-            display: inline-block;
-            animation: scroll 20s linear infinite;
-        }
-
-        @keyframes scroll {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
         h1 {
             color: #2c3e50;
-            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; /* Outline putih */
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
         }
 
         p {
             font-size: 1.1em;
             margin: 10px 0;
             color: #333;
-            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; /* Outline putih */
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
         }
 
         a {
@@ -104,6 +51,8 @@
             color: #fff;
             background-color: #3498db;
             border-radius: 10px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.414);
         }
 
         a:hover {
@@ -128,6 +77,52 @@
             max-width: 100px;
             height: auto;
         }
+
+        .container {
+            margin-top: 10px;
+            max-width: auto;
+            margin: auto;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            background-color: #000639ea;
+            color: white;
+            padding: 5px;
+            font-size: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.414);
+        }
+
+        .marquee span {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .datetime {
+            font-size: 26px;
+            margin-bottom: 10px;
+            background-color: #3498db00;
+            color: rgb(254, 251, 251);
+            text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+            padding: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -138,30 +133,30 @@
     <div class="container">
         <h1 class="bold-text">Selamat Datang di Desa Jangkang</h1>
     </div>
-<div class="container">
-    <div class="datetime" id="datetime"></div>
-    <script>
-        function updateDateTime() {
-            const now = new Date();
-            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true
-            };
-            const dayName = days[now.getDay()];
-            const formattedDateTime = `${dayName}, ${now.toLocaleString('id-ID', options)}`;
-            document.getElementById('datetime').innerText = formattedDateTime;
-        }
+    <div class="container">
+        <div class="datetime" id="datetime"></div>
+        <script>
+            function updateDateTime() {
+                const now = new Date();
+                const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                };
+                const dayName = days[now.getDay()];
+                const formattedDateTime = `${dayName}, ${now.toLocaleString('id-ID', options)}`;
+                document.getElementById('datetime').innerText = formattedDateTime;
+            }
 
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-    </script>
-</div>    
+            setInterval(updateDateTime, 1000);
+            updateDateTime();
+        </script>
+    </div>
     <div class="container">
         <div class="marquee">
             <span>Selamat datang Lending Page Jangkang Situs ini dibuat guna menjadi Lawang/pintu akses link/situs yang
@@ -169,56 +164,57 @@
         </div>
     </div>
     <div class="container">
-        <p class="bold-text">Menu Official & Plan Desa Jangkang </p>
-        
-        <a href="http://jangkang-beltim.desa.id/" Link="_blank">Website Resmi Desa Jangkang</a>
-        <a href="PetaDesa.html" Link="_blank">Peta Interaktif Desa Jangkang</a>
-      
+        <p class="bold-text">Menu Official & Plan Desa Jangkang</p>
+
+        <a href="http://jangkang-beltim.desa.id/" target="_blank">Website Resmi Desa Jangkang</a>
+        <a href="PetaDesa.html" target="_blank">Peta Interaktif Desa Jangkang</a>
+
     </div>
     <div class="container">
         <p class="bold-text">Perencanaan, Penganggara, & Pelaporan</p>
-        
-        <a href="https://www.appsheet.com/start/6c0f79a2-559b-485a-b754-eb039194a092" Link="_blank">Aplikasi Perencanaan Desa</a>
-        <a href=" https://docs.google.com/spreadsheets/d/1quqPnRHTKhBaadk1gvuEXQh4YzcgENZyus7W2JhyZCk/edit?gid=517804879#gid=517804879" Link="_blank">Perencanaan APBDes TA. 2025</a>
-       
+
+        <a href="https://www.appsheet.com/start/6c0f79a2-559b-485a-b754-eb039194a092" target="_blank">Aplikasi Perencanaan Desa</a>
+        <a href=" https://docs.google.com/spreadsheets/d/1quqPnRHTKhBaadk1gvuEXQh4YzcgENZyus7W2JhyZCk/edit?gid=517804879#gid=517804879" target="_blank">Perencanaan APBDes TA. 2025</a>
+
     </div>
     <div class="container">
-        <p class="bold-text">Menu Administarasi Umum</p>
-    
-        <a href="https://onedrive.live.com/edit?id=40E8730762E22A25!106&resid=40E8730762E22A25!106&ithint=file%2cxlsx&authkey=!ANkKt503BbC8h2U&wdo=2&cid=40e8730762e22a25" link="_blank">Nomor Surat keluar</a>
-        <a href="https://1drv.ms/x/c/2f0d3b227cba522d/ES1SunwiOw0ggC95AAAAAAABhuDJEeXmO56-F_v-5nUNxQ?e=OPQcTF" link="_blank">Nomor Undangan</a>
-        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!124&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VTMVN1bndpT3cwZ2dDOThBQUFBQUFBQnliQzlMdUN6OGhveXlYZU0wOXZ3S2c_ZT1HcG1QZ1E&resid=2F0D3B227CBA522D!124&wdo=2" link="_blank">Nomor Berita Acara</a>
-        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VjQ3dJV2dOQTh4QnBsYm5wYUxLX1FNQkRFV1JMeHVEQWcwMXdmUDZncTlocUE_ZT1QdFk5RzA&resid=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&wdo=2" link="_blank">Nomor SPPD/SPT</a>
-    
-    <div class="container">
-        <p class="bold-text">(Pelatihan Berbasis Digital Penguatan Kapasitas Aparatur pemerintahan Desa) </p>
-        
-        <a href="https://pamongdesa.kemendagri.go.id/home" Link="_blank">LMS Pamong Desa</a>
-    </div>
-    
+        <p class="bold-text">Menu Administrasi Umum</p>
+
+        <a href="https://onedrive.live.com/edit?id=40E8730762E22A25!106&resid=40E8730762E22A25!106&ithint=file%2cxlsx&authkey=!ANkKt503BbC8h2U&wdo=2&cid=40e8730762e22a25" target="_blank">Nomor Surat keluar</a>
+        <a href="https://1drv.ms/x/c/2f0d3b227cba522d/ES1SunwiOw0ggC95AAAAAAABhuDJEeXmO56-F_v-5nUNxQ?e=OPQcTF" target="_blank">Nomor Undangan</a>
+        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!124&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VTMVN1bndpT3cwZ2dDOThBQUFBQUFBQnliQzlMdUN6OGhveXlYZU0wOXZ3S2c_ZT1HcG1QZ1E&resid=2F0D3B227CBA522D!124&wdo=2" target="_blank">Nomor Berita Acara</a>
+        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VjQ3dJV2dOQTh4QnBsYm5wYUxLX1FNQkRFV1JMeHVEQWcwMXdmUDZncTlocUE_ZT1QdFk5RzA&resid=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&wdo=2" target="_blank">Nomor SPPD/SPT</a>
+
+        <div class="container">
+            <p class="bold-text">(Pelatihan Berbasis Digital Penguatan Kapasitas Aparatur pemerintahan Desa)</p>
+
+            <a href="https://pamongdesa.kemendagri.go.id/home" target="_blank">LMS Pamong Desa</a>
+        </div>
+
     </div>
     <div class="container">
         <p class="bold-text">Aplikasi yang dimandatkan</p>
-    
-        <a href="https://dashboard-sdgs.kemendesa.go.id/" link="_blank">SDGs Desa</a>
-        <a href="https://sid.kemendesa.go.id/profile" link="_blank">SID Kemendesa</a>
-        <a href="https://idm.kemendesa.go.id/" link="_blank">IDM Desa</a>
-        <a href="https://sipd-ri.kemendagri.go.id/auth/login" link="_blank">SIPD RI</a>
-        <a href="https://prodeskel.binapemdes.kemendagri.go.id/app_Login/" link="_blank">PRODESKEL</a>
-        <a href="https://epdeskel.binapemdes.kemendagri.go.id/app_Login/" link="_blank">EPDESKEL</a>
-        <a href="https://simpor.beltim.go.id/login" link="_blank">SIMPOR</a>
+
+        <a href="https://dashboard-sdgs.kemendesa.go.id/" target="_blank">SDGs Desa</a>
+        <a href="https://sid.kemendesa.go.id/profile" target="_blank">SID Kemendesa</a>
+        <a href="https://idm.kemendesa.go.id/" target="_blank">IDM Desa</a>
+        <a href="https://sipd-ri.kemendagri.go.id/auth/login" target="_blank">SIPD RI</a>
+        <a href="https://prodeskel.binapemdes.kemendagri.go.id/app_Login/" target="_blank">PRODESKEL</a>
+        <a href="https://epdeskel.binapemdes.kemendagri.go.id/app_Login/" target="_blank">EPDESKEL</a>
+        <a href="https://simpor.beltim.go.id/login" target="_blank">SIMPOR</a>
     </div>
     <div class="container">
         <p class="bold-text">Arsip Digital</p>
-    
-        <a href="logArsipPerdes.html" link="_blank">Arsip PERDES</a>
-        <a href="commingsoon.html" link="_blank">Arsip PERKADES</a>
-        <a href="logArsipSK.html" link="_blank">Arsip SK</a>
-        <a href="logArsipSurat.html" link="_blank">Arsip Surat</a>
-        <a href="commingsoon.html" link="_blank">Arsip BA</a>
-    </div
+
+        <a href="logArsipPerdes.html" target="_blank">Arsip PERDES</a>
+        <a href="commingsoon.html" target="_blank">Arsip PERKADES</a>
+        <a href="logArsipSK.html" target="_blank">Arsip SK</a>
+        <a href="logArsipSurat.html" target="_blank">Arsip Surat</a>
+        <a href="commingsoon.html" target="_blank">Arsip BA</a>
+    </div>
     <div class="footer">
         <p>&copy; 2024 Desa Jangkang Kec.Dendang Kab. Belitung Timur.</p>
     </div>
 </body>
+
 </html>
