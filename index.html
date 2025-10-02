@@ -15,24 +15,29 @@
         gtag('config', 'G-NRSYPXB0MQ');
     </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         /* General Styling */
         body {
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            font-family: 'Roboto', sans-serif;
             text-align: center;
             padding: 10px;
             background-image: url('https://static.vecteezy.com/system/resources/previews/008/311/935/large_2x/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            color: #333;
         }
 
         h1 {
-            color: #2c3e50;
+            color: #1e88e5;
             text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
         }
 
@@ -45,18 +50,19 @@
 
         a {
             display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none;
             color: #fff;
-            background-color: hsla(204, 100%, 50%, 0.826);
-            border-radius: 10px;
-            border: 2px solid #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.414);
+            background-color: #42a5f5;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin: 5px;
         }
 
         a:hover {
-            background-color: #d2c72dd8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .footer {
@@ -90,7 +96,7 @@
             white-space: nowrap;
             overflow: hidden;
             position: relative;
-            background-color: #000639ea;
+            background-color: #1565c0;
             color: white;
             padding: 5px;
             font-size: 20px;
@@ -122,6 +128,17 @@
             padding: 5px;
             border-radius: 5px;
             font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .marquee {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -166,71 +183,91 @@
     <div class="container">
         <p class="bold-text">Menu Official & Plan Desa Jangkang</p>
 
-        <a href="http://jangkang-beltim.desa.id/" target="_blank">Website Resmi Desa Jangkang</a>
-        <a href="https://website.desa.id/cms/login" target="_blank">Login | Admin website</a>
-        <a href="PetaDesa.html" target="_blank">Peta Interaktif Desa Jangkang</a>
-        
+        <a href="http://jangkang-beltim.desa.id/" target="_blank"><i class="fas fa-globe"></i> Website Resmi Desa
+            Jangkang</a>
+        <a href="https://website.desa.id/cms/login" target="_blank"><i class="fas fa-sign-in-alt"></i> Login | Admin
+            website</a>
+        <a href="PetaDesa.html" target="_blank"><i class="fas fa-map"></i> Peta Interaktif Desa Jangkang</a>
+
     </div>
     <div class="container">
         <p class="bold-text">Perencanaan, Penganggara, & Pelaporan</p>
 
-        <a href="https://www.appsheet.com/start/6c0f79a2-559b-485a-b754-eb039194a092" target="_blank">Aplikasi Perencanaan Desa</a>
-        <a href=" https://docs.google.com/spreadsheets/d/1w35KyKMLov6mm0xKTC5bBF9ezOmCw5LpVOHQgsh6BtY/edit?gid=1280554104#gid=1280554104" target="_blank">Perencanaan APBDes TA. 2025 Perubahan</a>
-        <a href=" https://docs.google.com/spreadsheets/d/1vKEyBJ1-tvxevWHL3n2o_lZeaAUmd84Bje0ApPadGQU/edit?gid=1453824980#gid=1453824980" target="_blank">Perencanaan APBDes TA. 2026 Awal</a>
-        <a href="LPD_2024.html" link="_blank">Laporan Penyelengaraan Pemdes 2024</a>
+        <a href="https://www.appsheet.com/start/6c0f79a2-559b-485a-b754-eb039194a092" target="_blank"><i
+                class="fas fa-clipboard-check"></i> Aplikasi Perencanaan Desa</a>
+        <a href=" https://docs.google.com/spreadsheets/d/1w35KyKMLov6mm0xKTC5bBF9ezOmCw5LpVOHQgsh6BtY/edit?gid=1280554104#gid=1280554104"
+            target="_blank"><i class="fas fa-file-excel"></i> Perencanaan APBDes TA. 2025 Perubahan</a>
+        <a href=" https://docs.google.com/spreadsheets/d/1vKEyBJ1-tvxevWHL3n2o_lZeaAUmd84Bje0ApPadGQU/edit?gid=1453824980#gid=1453824980"
+            target="_blank"><i class="fas fa-file-excel"></i> Perencanaan APBDes TA. 2026 Awal</a>
+        <a href="LPD_2024.html" link="_blank"><i class="fas fa-file-alt"></i> Laporan Penyelengaraan Pemdes 2024</a>
 
     </div>
     <div class="container">
         <p class="bold-text">Reprensi Data Perencanaan</p>
-            
-        <a href="https://gis.dukcapil.kemendagri.go.id/peta/">VISUAL DATA DUKCAPIL</a>
-        <a href="https://sid.kemendesa.go.id/profile/">PROFIL | SISTEM INFORMASI DESA</a>
-        <a href="https://drive.google.com/file/d/1cuAEfeXypXkuCQEpAnJkxEZAuxgJPyVJ/view?usp=sharing"_blank">SHS (STANDAR HARGA SATUAN)</a>
-            
-    </div>       
+
+        <a href="https://gis.dukcapil.kemendagri.go.id/peta/"><i class="fas fa-map-marked-alt"></i> VISUAL DATA
+            DUKCAPIL</a>
+        <a href="https://sid.kemendesa.go.id/profile/"><i class="fas fa-info-circle"></i> PROFIL | SISTEM INFORMASI
+            DESA</a>
+        <a href="https://drive.google.com/file/d/1cuAEfeXypXkuCQEpAnJkxEZAuxgJPyVJ/view?usp=sharing"_blank"><i
+                class="fas fa-file-pdf"></i> SHS (STANDAR HARGA SATUAN)</a>
+
+    </div>
     <div class="container">
         <p class="bold-text">Menu Administrasi Umum</p>
 
-        <a href="https://docs.google.com/spreadsheets/d/1oIxztaaAOs8-SzXM-Qcl10ojr76dxRV-BjfUOHEv9zk/edit?usp=sharing" target="_blank">Adm Perdes dan Perkades</a>
-        <a href="https://onedrive.live.com/edit?id=40E8730762E22A25!106&resid=40E8730762E22A25!106&ithint=file%2cxlsx&authkey=!ANkKt503BbC8h2U&wdo=2&cid=40e8730762e22a25" target="_blank">Nomor Surat keluar</a>
-        <a href="https://1drv.ms/x/c/2f0d3b227cba522d/ES1SunwiOw0ggC95AAAAAAABhuDJEeXmO56-F_v-5nUNxQ?e=OPQcTF" target="_blank">Nomor Undangan</a>
-        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!124&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VTMVN1bndpT3cwZ2dDOThBQUFBQUFBQnliQzlMdUN6OGhveXlYZU0wOXZ3S2c_ZT1HcG1QZ1E&resid=2F0D3B227CBA522D!124&wdo=2" target="_blank">Nomor Berita Acara</a>
-        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VjQ3dJV2dOQTh4QnBsYm5wYUxLX1FNQkRFV1JMeHVEQWcwMXdmUDZncTlocUE_ZT1QdFk5RzA&resid=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&wdo=2" target="_blank">Nomor SPPD/SPT</a>
+        <a href="https://docs.google.com/spreadsheets/d/1oIxztaaAOs8-SzXM-Qcl10ojr76dxRV-BjfUOHEv9zk/edit?usp=sharing"
+            target="_blank"><i class="fas fa-file-alt"></i> Adm Perdes dan Perkades</a>
+        <a href="https://onedrive.live.com/edit?id=40E8730762E22A25!106&resid=40E8730762E22A25!106&ithint=file%2cxlsx&authkey=!ANkKt503BbC8h2U&wdo=2&cid=40e8730762e22a25"
+            target="_blank"><i class="fas fa-file-excel"></i> Nomor Surat keluar</a>
+        <a href="https://1drv.ms/x/c/2f0d3b227cba522d/ES1SunwiOw0ggC95AAAAAAABhuDJEeXmO56-F_v-5nUNxQ?e=OPQcTF"
+            target="_blank"><i class="fas fa-file-excel"></i> Nomor Undangan</a>
+        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!124&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VTMVN1bndpT3cwZ2dDOThBQUFBQUFBQnliQzlMdUN6OGhveXlYZU0wOXZ3S2c_ZT1HcG1QZ1E&resid=2F0D3B227CBA522D!124&wdo=2"
+            target="_blank"><i class="fas fa-file-excel"></i> Nomor Berita Acara</a>
+        <a href="https://onedrive.live.com/edit?cid=2f0d3b227cba522d&id=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8yZjBkM2IyMjdjYmE1MjJkL0VjQ3dJV2dOQTh4QnBsYm5wYUxLX1FNQkRFV1JMeHVEQWcwMXdmUDZncTlocUE_ZT1QdFk5RzA&resid=2F0D3B227CBA522D!s6821b0c0030d41cca656e7a5a2cafd03&wdo=2"
+            target="_blank"><i class="fas fa-file-excel"></i> Nomor SPPD/SPT</a>
 
         <div class="container">
             <p class="bold-text">(Pelatihan Berbasis Digital Penguatan Kapasitas Aparatur pemerintahan Desa)</p>
 
-            <a href="https://pamongdesa.kemendagri.go.id/home" target="_blank">LMS Pamong Desa</a>
+            <a href="https://pamongdesa.kemendagri.go.id/home" target="_blank"><i class="fas fa-graduation-cap"></i> LMS
+                Pamong Desa</a>
         </div>
 
     </div>
     <div class="container">
         <p class="bold-text">Aplikasi yang dimandatkan</p>
 
-        <a href="https://srikandi.arsip.go.id/auth/login" target="_blank">SRIKANDI | Surat Elektronik</a>
-        <a href="https://selina.beltim.go.id/signin" target="_blank">SELINA | DUKCAPIL</a>        
-        <a href="https://dashboard-sdgs.kemendesa.go.id/" target="_blank">SDGs Desa</a>
-        <a href="https://sid.kemendesa.go.id/profile" target="_blank">SID Kemendesa</a>
-        <a href="https://id.kemendesa.go.id/" target="_blank">ID (Indeks Desa)</a>
-        <a href="https://sipd-ri.kemendagri.go.id/auth/login" target="_blank">SIPD RI</a>
-        <a href="https://prodeskel.binapemdes.kemendagri.go.id/app_Login/" target="_blank">PRODESKEL</a>
-        <a href="https://epdeskel.binapemdes.kemendagri.go.id/app_Login/" target="_blank">EPDESKEL</a>
-        <a href="https://sipades.beltim.go.id/" target="_blank">SIPADES.V3</a>
-        <a href="https://simpor.beltim.go.id/login" target="_blank">SIMPOR</a>
-        <a href="https://ehdw.kemendesa.go.id/app-pendataan/#/" target="_blank">eHDW</a>
-        <a href="https://beltim.go.id/login" target="_blank">TERAS LAYANAN APIP</a>
-        <a href="https://jagadesa.kejaksaan.go.id/login" target="_blank">JAGA DESA</a>
+        <a href="https://srikandi.arsip.go.id/auth/login" target="_blank"><i class="fas fa-envelope"></i> SRIKANDI |
+            Surat Elektronik</a>
+        <a href="https://selina.beltim.go.id/signin" target="_blank"><i class="fas fa-id-card"></i> SELINA |
+            DUKCAPIL</a>
+        <a href="https://dashboard-sdgs.kemendesa.go.id/" target="_blank"><i class="fas fa-bullseye"></i> SDGs Desa</a>
+        <a href="https://sid.kemendesa.go.id/profile" target="_blank"><i class="fas fa-info-circle"></i> SID
+            Kemendesa</a>
+        <a href="https://id.kemendesa.go.id/" target="_blank"><i class="fas fa-fingerprint"></i> ID (Indeks Desa)</a>
+        <a href="https://sipd-ri.kemendagri.go.id/auth/login" target="_blank"><i class="fas fa-desktop"></i> SIPD RI</a>
+        <a href="https://prodeskel.binapemdes.kemendagri.go.id/app_Login/" target="_blank"><i
+                class="fas fa-th-list"></i> PRODESKEL</a>
+        <a href="https://epdeskel.binapemdes.kemendagri.go.id/app_Login/" target="_blank"><i
+                class="fas fa-list-alt"></i> EPDESKEL</a>
+        <a href="https://sipades.beltim.go.id/" target="_blank"><i class="fas fa-coins"></i> SIPADES.V3</a>
+        <a href="https://simpor.beltim.go.id/login" target="_blank"><i class="fas fa-truck"></i> SIMPOR</a>
+        <a href="https://ehdw.kemendesago.id/app-pendataan/#/" target="_blank"><i class="fas fa-database"></i> eHDW</a>
+        <a href="https://beltim.go.id/login" target="_blank"><i class="fas fa-shield-alt"></i> TERAS LAYANAN APIP</a>
+        <a href="https://jagadesa.kejaksaan.go.id/login" target="_blank"><i class="fas fa-gavel"></i> JAGA DESA</a>
     </div>
     <div class="container">
         <p class="bold-text">Arsip Digital</p>
 
-        <a href="https://peraturan.go.id/" target="_blank">Kumpulan Peraturan</a>
-        <a href="https://jdih.belitungtimurkab.go.id/" target="_blank">JDIH Kabupaten Belitung Timur</a>
-        <a href="logArsipPerdes.html" target="_blank">Arsip PERDES</a>
-        <a href="commingsoon.html" target="_blank">Arsip PERKADES</a>
-        <a href="logArsipSK.html" target="_blank">Arsip SK</a>
-        <a href="logArsipSurat.html" target="_blank">Arsip Surat</a>
-        <a href="commingsoon.html" target="_blank">Arsip BA</a>
+        <a href="https://peraturan.go.id/" target="_blank"><i class="fas fa-book"></i> Kumpulan Peraturan</a>
+        <a href="https://jdih.belitungtimurkab.go.id/" target="_blank"><i class="fas fa-university"></i> JDIH Kabupaten
+            Belitung Timur</a>
+        <a href="logArsipPerdes.html" target="_blank"><i class="fas fa-archive"></i> Arsip PERDES</a>
+        <a href="commingsoon.html" target="_blank"><i class="fas fa-hourglass-half"></i> Arsip PERKADES</a>
+        <a href="logArsipSK.html" target="_blank"><i class="fas fa-file-signature"></i> Arsip SK</a>
+        <a href="logArsipSurat.html" target="_blank"><i class="fas fa-envelope-open-text"></i> Arsip Surat</a>
+        <a href="commingsoon.html" target="_blank"><i class="fas fa-hourglass-half"></i> Arsip BA</a>
     </div>
     <div class="footer">
         <p>&copy; 2024 Desa Jangkang Kec.Dendang Kab. Belitung Timur.</p>
@@ -238,15 +275,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
