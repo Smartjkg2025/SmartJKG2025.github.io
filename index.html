@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM Desa Jangkang</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRSYPXB0MQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-NRSYPXB0MQ');
+    </script>
+
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('jk-theme') || 'dark');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        :root { --radius: 18px; }
+        [data-theme="dark"] {
+            --bg1:#0a0f1e; --bg2:#111c36; --text:#f1f5f9; --muted:#94a3b8;
+            --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+            --border:rgba(255,255,255,.12); --nav:rgba(10,15,30,.75);
+            --input:rgba(255,255,255,.07); --shadow:0 18px 40px rgba(1,4,15,.45);
+        }
+        [data-theme="light"] {
+            --bg1:#eef3ff; --bg2:#dfe8ff; --text:#0f172a; --muted:#5b6b85;
+            --glass:rgba(255,255,255,.66); --glass-strong:rgba(255,255,255,.92);
+            --border:rgba(15,23,42,.10); --nav:rgba(255,255,255,.78);
+            --input:rgba(255,255,255,.85); --shadow:0 18px 40px rgba(30,58,138,.12);
+        }
+        body { font-family:'Plus Jakarta Sans',system-ui,sans-serif; background:var(--bg1); color:var(--text); min-height:100vh; overflow-x:hidden; transition:background .4s,color .4s; }
+        ::selection { background:rgba(59,130,246,.35); }
+        ::-webkit-scrollbar { width:10px; }
+        ::-webkit-scrollbar-thumb { background:rgba(148,163,184,.35); border-radius:99px; }
+
+        /* Latar animasi */
+        .bg-decor { position:fixed; inset:0; z-index:-1; overflow:hidden; background:linear-gradient(150deg,var(--bg1),var(--bg2)); }
+        .blob { position:absolute; border-radius:50%; filter:blur(95px); opacity:.45; animation:float 20s ease-in-out infinite; }
+        [data-theme="light"] .blob { opacity:.3; }
+        .b1 { width:460px; height:460px; background:#2563eb; top:-140px; left:-140px; }
+        .b2 { width:380px; height:380px; background:#06b6d4; top:34%; right:-120px; animation-delay:-7s; }
+        .b3 { width:420px; height:420px; background:#8b5cf6; bottom:-160px; left:22%; animation-delay:-13s; }
+        @keyframes float { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(45px,-35px) scale(1.08)} 66%{transform:translate(-35px,30px) scale(.94)} }
+
+        /* Navbar */
+        .navbar { position:sticky; top:0; z-index:50; backdrop-filter:blur(18px); background:var(--nav); border-bottom:1px solid var(--border); }
+        .nav-inner { max-width:1150px; margin:0 auto; display:flex; align-items:center; gap:12px; padding:12px 20px; }
+        .brand { display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
+        .brand img { width:44px; height:44px; border-radius:12px; background:#fff; padding:3px; box-shadow:0 4px 14px rgba(37,99,235,.35); }
+        .brand-name { font-weight:800; font-size:1.05rem; }
+        .brand-sub { font-size:.68rem; color:var(--muted); font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+        .chip { display:inline-flex; align-items:center; gap:6px; font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; }
+        .chip .dot { width:7px; height:7px; border-radius:50%; background:currentColor; animation:pulse 1.6s infinite; }
+        @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 currentColor; opacity:1} 50%{opacity:.4} }
+        .chip.ok { color:#34d399; background:rgba(52,211,153,.12); border:1px solid rgba(52,211,153,.3); }
+        .chip.warn { color:#fbbf24; background:rgba(251,191,36,.12); border:1px solid rgba(251,191,36,.3); }
+        .chip.err { color:#f87171; background:rgba(248,113,113,.12); border:1px solid rgba(248,113,113,.3); }
+        .nav-btn { width:42px; height:42px; border-radius:12px; border:1px solid var(--border); background:var(--glass); color:var(--text); cursor:pointer; font-size:1rem; transition:.25s; display:grid; place-items:center; text-decoration:none; }
+        .nav-btn:hover { transform:rotate(18deg) scale(1.06); background:var(--glass-strong); }
+
+        /* Hero */
+        .hero { text-align:center; padding:54px 20px 0; }
+        .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#60a5fa; background:rgba(96,165,250,.1); border:1px solid rgba(96,165,250,.3); padding:7px 16px; border-radius:999px; margin-bottom:18px; }
+        .hero h1 { font-size:clamp(1.7rem,4.5vw,2.9rem); font-weight:800; letter-spacing:-.02em; line-height:1.18; }
+        .gradient-text { background:linear-gradient(90deg,#60a5fa,#34d399,#a78bfa); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+        [data-theme="light"] .gradient-text { background:linear-gradient(90deg,#2563eb,#059669,#7c3aed); -webkit-background-clip:text; background-clip:text; }
+        .hero p.desc { max-width:640px; margin:14px auto 0; color:var(--muted); font-size:.98rem; line-height:1.65; }
+        .stats { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:24px; }
+        .stat { display:flex; align-items:center; gap:12px; background:var(--glass); border:1px solid var(--border); border-radius:16px; padding:10px 18px; backdrop-filter:blur(12px); }
+        .stat > i { color:#60a5fa; }
+        [data-theme="light"] .stat > i { color:#2563eb; }
+        .stat b { font-size:1.02rem; }
+        .stat span { display:block; font-size:.7rem; color:var(--muted); font-weight:600; }
+        .datetime { display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:22px; padding:12px 22px; border-radius:999px; background:var(--glass); border:1px solid var(--border); backdrop-filter:blur(12px); font-weight:700; font-size:.95rem; box-shadow:var(--shadow); }
+        .datetime i { color:#60a5fa; } [data-theme="light"] .datetime i { color:#2563eb; }
+        .datetime .sep { color:var(--muted); opacity:.4; }
+        .marquee { display:flex; align-items:center; gap:12px; max-width:860px; margin:20px auto 0; padding:12px 20px; background:var(--glass); border:1px solid var(--border); border-radius:999px; backdrop-filter:blur(12px); overflow:hidden; }
+        .marquee .fa-bullhorn { color:#f59e0b; flex-shrink:0; }
+        .marquee-track { flex:1; overflow:hidden; white-space:nowrap; mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
+        .marquee-track span { display:inline-block; padding-left:100%; font-size:.86rem; color:var(--muted); animation:scrollX 26s linear infinite; }
+        @keyframes scrollX { to { transform:translateX(-100%); } }
+
+        /* Pencarian */
+        .search-wrap { position:relative; max-width:580px; margin:30px auto 0; }
+        .search-wrap > .fa-magnifying-glass { position:absolute; left:20px; top:50%; transform:translateY(-50%); color:var(--muted); }
+        #searchInput { width:100%; padding:15px 52px 15px 50px; font-size:.95rem; font-family:inherit; color:var(--text); background:var(--input); border:1px solid var(--border); border-radius:999px; outline:none; backdrop-filter:blur(14px); transition:.3s; box-shadow:var(--shadow); }
+        #searchInput:focus { border-color:#3b82f6; box-shadow:0 0 0 4px rgba(59,130,246,.18); }
+        .search-kbd { position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); background:var(--glass); border-radius:6px; padding:3px 9px; }
+
+        /* TAB kategori */
+        .tabs { display:flex; gap:10px; overflow-x:auto; max-width:1150px; margin:32px auto 0; padding:4px 20px; scrollbar-width:none; }
+        .tabs::-webkit-scrollbar { display:none; }
+        .tab-btn { flex-shrink:0; display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px; border:1px solid var(--border); background:var(--glass); color:var(--muted); font-weight:700; font-size:.85rem; font-family:inherit; cursor:pointer; backdrop-filter:blur(12px); transition:.25s; }
+        .tab-btn:hover { color:var(--text); transform:translateY(-2px); }
+        .tab-btn.active { color:#fff; background:linear-gradient(135deg,#2563eb,#60a5fa); border-color:transparent; box-shadow:0 8px 20px rgba(37,99,235,.4); }
+        .tab-btn .count { font-size:.7rem; background:var(--glass-strong); border-radius:999px; padding:2px 8px; }
+        .tab-btn.active .count { background:rgba(255,255,255,.2); }
+
+        /* Konten */
+        .wrap { max-width:1150px; margin:0 auto; padding:10px 20px 30px; }
+        .section { margin-top:40px; animation:fadeUp .5s ease both; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+        .section-head { display:flex; align-items:center; gap:14px; margin-bottom:18px; flex-wrap:wrap; }
+        .section-icon { width:48px; height:48px; border-radius:15px; display:grid; place-items:center; font-size:1.15rem; color:#fff; background:linear-gradient(135deg,var(--c1),var(--c2)); box-shadow:0 10px 24px var(--glow); }
+        .section-title { font-size:1.18rem; font-weight:800; }
+        .section-count { font-size:.7rem; font-weight:700; color:var(--muted); background:var(--glass); border:1px solid var(--border); padding:4px 12px; border-radius:999px; margin-left:auto; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:14px; }
+        .card-link { position:relative; display:flex; align-items:center; gap:14px; padding:16px 18px; border-radius:var(--radius); background:var(--glass); border:1px solid var(--border); backdrop-filter:blur(12px); text-decoration:none; color:var(--text); overflow:hidden; transition:.28s; }
+        .card-link::after { content:''; position:absolute; inset:0; background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.09) 50%,transparent 75%); transform:translateX(-130%); transition:transform .65s; }
+        .card-link:hover::after { transform:translateX(130%); }
+        .card-link:hover { transform:translateY(-5px); background:var(--glass-strong); border-color:var(--c1); box-shadow:0 16px 34px var(--glow); }
+        .card-icon { width:46px; height:46px; flex-shrink:0; border-radius:13px; display:grid; place-items:center; font-size:1.08rem; color:#fff; background:linear-gradient(135deg,var(--c1),var(--c2)); box-shadow:0 6px 16px var(--glow); transition:.28s; }
+        .card-link:hover .card-icon { transform:scale(1.08) rotate(-6deg); }
+        .card-text { flex:1; min-width:0; }
+        .card-title { font-size:.9rem; font-weight:700; line-height:1.4; }
+        .card-sub { font-size:.72rem; color:var(--muted); font-weight:600; margin-top:3px; word-break:break-word; }
+        .card-arrow { color:var(--muted); font-size:.8rem; transition:.28s; }
+        .card-link:hover .card-arrow { color:var(--c1); transform:translateX(5px); }
+        .no-results { display:none; text-align:center; padding:60px 20px; color:var(--muted); }
+        .no-results i { font-size:2.4rem; margin-bottom:14px; color:#60a5fa; }
+
+        .footer { margin-top:60px; padding:30px 20px 34px; border-top:1px solid var(--border); text-align:center; }
+        .footer .f-logo { width:52px; height:52px; border-radius:14px; background:#fff; padding:4px; margin-bottom:12px; }
+        .footer p { font-size:.85rem; color:var(--muted); margin-top:4px; }
+
+        .to-top { position:fixed; right:22px; bottom:22px; z-index:60; width:46px; height:46px; border-radius:14px; border:1px solid var(--border); background:var(--glass-strong); backdrop-filter:blur(12px); color:var(--text); cursor:pointer; display:grid; place-items:center; opacity:0; pointer-events:none; transform:translateY(14px); transition:.3s; }
+        .to-top.show { opacity:1; pointer-events:auto; transform:none; }
+        .to-top:hover { background:#2563eb; color:#fff; }
+
+        @media (max-width:640px) { .brand-sub,.chip,.search-kbd { display:none; } .hero { padding-top:40px; } .section { margin-top:30px; } }
+    </style>
+</head>
+<body>
+    <div class="bg-decor"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="brand">
+                <img src="logo.png" alt="Logo">
+                <div>
+                    <div class="brand-name" id="brandName">ADM Desa Jangkang</div>
+                    <div class="brand-sub">Portal Tautan Digital Desa</div>
+                </div>
+            </div>
+            <span class="chip warn" id="connChip"><span class="dot"></span><span id="connText">Menghubungkan…</span></span>
+            <a class="nav-btn" href="admin.html" title="Login Admin" style="font-size:.9rem;"><i class="fas fa-lock"></i></a>
+            <button class="nav-btn" id="themeBtn" aria-label="Ganti tema"><i id="themeIcon" class="fas fa-sun"></i></button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <span class="eyebrow"><i class="fas fa-landmark"></i> Pemerintah Desa Jangkang · Kec. Dendang</span>
+        <h1 id="heroTitle">Selamat Datang di Portal Digital Desa Jangkang</h1>
+        <p class="desc" id="heroSub"></p>
+
+        <div class="stats">
+            <div class="stat"><i class="fas fa-link"></i><div><b id="statLinks">0</b><span>Tautan Aktif</span></div></div>
+            <div class="stat"><i class="fas fa-layer-group"></i><div><b id="statCats">0</b><span>Kategori</span></div></div>
+            <div class="stat"><i class="fas fa-satellite-dish"></i><div><b>Realtime</b><span>Data Firebase</span></div></div>
+        </div>
+
+        <div class="datetime">
+            <i class="far fa-calendar"></i><span id="dateText">—</span>
+            <span class="sep">·</span>
+            <i class="far fa-clock"></i><span id="timeText">—</span>
+        </div>
+
+        <div class="marquee">
+            <i class="fas fa-bullhorn"></i>
+            <div class="marquee-track"><span id="marqueeText"></span></div>
+        </div>
+
+        <div class="search-wrap">
+            <i class="fas fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Cari tautan… (mis. APBDes, SIPD, arsip)">
+            <span class="search-kbd">/</span>
+        </div>
+    </header>
+
+    <!-- TAB kategori -->
+    <div class="tabs" id="tabs"></div>
+
+    <main class="wrap" id="content"></main>
+
+    <div class="no-results" id="noResults">
+        <i class="fas fa-magnifying-glass-minus"></i>
+        <h3>Tidak ditemukan</h3>
+        <p id="noResultsText"></p>
+    </div>
+
+    <footer class="footer">
+        <img class="f-logo" src="logo.png" alt="Logo">
+        <p><b>ADM Desa Jangkang</b> · Kec. Dendang, Kab. Belitung Timur</p>
+        <p id="footerText"></p>
+    </footer>
+
+    <button class="to-top" id="toTop" aria-label="Ke atas"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <!-- Data default -->
+    <script src="data-default.js"></script>
+
+    <script>
+        /* ================================================
+           ⚠️ ISI firebaseConfig ANDA DI SINI
+           (sama dengan yang di admin.html)
+           ================================================ */
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXKugjgU3-ugY-Vy4ubPsWfElKSNLK19w",
+            authDomain: "lawangdjangkang.firebaseapp.com",
+            projectId: "lawangdjangkang",
+            storageBucket: "lawangdjangkang.firebasestorage.app",
+            messagingSenderId: "880336737711",
+            appId: "1:880336737711:web:3c55aa2eecb8b316744b5a"
+        };
+
+        // ---------- Inisialisasi ----------
+        const CONFIG_OK = firebaseConfig.apiKey !== "ISI_API_KEY_ANDA";
+        let db = null, connStatus = CONFIG_OK ? 'connecting' : 'demo';
+        if (CONFIG_OK) {
+            try { firebase.initializeApp(firebaseConfig); db = firebase.firestore(); }
+            catch (e) { connStatus = 'error'; }
+        }
+
+        // ---------- State ----------
+        let CATS = DEFAULT_CATEGORIES.map((c, i) => ({ ...c, id: 'def' + i }));
+        let LINKS = DEFAULT_LINKS.map((l, i) => ({ ...l, id: 'def' + i }));
+        let SETTINGS = { ...DEFAULT_SETTINGS };
+        let activeCat = 'all';
+
+        // ---------- Helper ----------
+        const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+        const sortFn = (a, b) => (a.order || 999) - (b.order || 999);
+        const sortCats = a => a.slice().sort(sortFn);
+        const sortLinks = a => a.slice().sort(sortFn);
+        function hexA(hex, alpha) {
+            hex = String(hex || '#2563eb').replace('#', '');
+            if (hex.length === 3) hex = hex.split('').map(h => h + h).join('');
+            const n = parseInt(hex, 16) || 0x2563eb;
+            return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+        }
+        const iconCls = ic => { ic = String(ic || 'fa-link').trim(); return ic.startsWith('fa') ? ic : 'fas ' + ic; };
+
+        // ---------- Dengarkan data realtime ----------
+        if (db) {
+            db.collection('categories').onSnapshot(snap => {
+                CATS = sortCats(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+                connStatus = 'ok'; render();
+            }, () => { connStatus = 'error'; render(); });
+
+            db.collection('links').onSnapshot(snap => {
+                LINKS = sortLinks(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+                render();
+            }, () => {});
+
+            db.collection('settings').doc('site').onSnapshot(doc => {
+                if (doc.exists) SETTINGS = { ...DEFAULT_SETTINGS, ...doc.data() };
+                applySettings();
+            });
+        }
+
+        // ---------- Pengaturan teks situs ----------
+        function applySettings() {
+            document.title = SETTINGS.siteTitle || 'ADM Desa Jangkang';
+            document.getElementById('brandName').textContent = SETTINGS.siteTitle || 'ADM Desa Jangkang';
+            document.getElementById('heroSub').textContent = SETTINGS.heroSubtitle || '';
+            document.getElementById('marqueeText').textContent = SETTINGS.marquee || '';
+            document.getElementById('footerText').textContent = SETTINGS.footer || '';
+            const t = SETTINGS.heroTitle || '', hl = SETTINGS.heroHighlight || '';
+            const h1 = document.getElementById('heroTitle');
+            if (hl && t.includes(hl)) h1.innerHTML = esc(t).replace(esc(hl), `<span class="gradient-text">${esc(hl)}</span>`);
+            else h1.textContent = t;
+        }
+
+        // ---------- Render ----------
+        function render() {
+            renderStatus(); renderTabs(); renderContent(); renderStats();
+        }
+
+        function renderStatus() {
+            const chip = document.getElementById('connChip');
+            const txt = document.getElementById('connText');
+            const map = {
+                ok:   ['ok',   'Terhubung'],
+                demo: ['warn', 'Mode Demo'],
+                connecting: ['warn', 'Menghubungkan…'],
+                error:['err',  'Firebase Error']
+            };
+            const [cls, label] = map[connStatus] || map.demo;
+            chip.className = 'chip ' + cls;
+            txt.textContent = label;
+        }
+
+        function renderStats() {
+            document.getElementById('statLinks').textContent = LINKS.length;
+            document.getElementById('statCats').textContent = CATS.length;
+        }
+
+        function renderTabs() {
+            const el = document.getElementById('tabs');
+            const btn = (id, name, icon, count, active) =>
+                `<button class="tab-btn ${active ? 'active' : ''}" data-cat="${esc(id)}">
+                    <i class="${iconCls(icon)}"></i> ${esc(name)} <span class="count">${count}</span>
+                </button>`;
+            let html = btn('all', 'Semua', 'fa-layer-group', LINKS.length, activeCat === 'all');
+            CATS.forEach(c => html += btn(c.id, c.name, c.icon, LINKS.filter(l => l.categoryId === c.id).length, activeCat === c.id));
+            el.innerHTML = html;
+        }
+
+        function cardHTML(l, c) {
+            const icon = esc(l.icon || 'fa-link');
+            return `<a class="card-link" href="${esc(l.url)}" target="_blank" rel="noopener"
+                        style="--c1:${esc(c.color1)};--c2:${esc(c.color2)};--glow:${hexA(c.color1, .4)}">
+                    <div class="card-icon"><i class="${iconCls(icon)}"></i></div>
+                    <div class="card-text">
+                        <div class="card-title">${esc(l.title)}</div>
+                        ${l.desc ? `<div class="card-sub">${esc(l.desc)}</div>` : ''}
+                    </div>
+                    <i class="fas fa-arrow-right card-arrow"></i>
+                </a>`;
+        }
+
+        function renderContent() {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            const wrap = document.getElementById('content');
+            const showAll = q !== '' || activeCat === 'all';
+            const cats = showAll ? CATS : CATS.filter(c => c.id === activeCat);
+
+            let html = '', total = 0;
+            cats.forEach(c => {
+                const items = LINKS.filter(l => l.categoryId === c.id &&
+                    (!q || (l.title + ' ' + (l.desc || '') + ' ' + (l.url || '')).toLowerCase().includes(q)));
+                if (q !== '' && items.length === 0) return;
+                total += items.length;
+                html += `<section class="section" style="--c1:${esc(c.color1)};--c2:${esc(c.color2)};--glow:${hexA(c.color1, .4)}">
+                            <div class="section-head">
+                                <div class="section-icon"><i class="${iconCls(c.icon)}"></i></div>
+                                <div class="section-title">${esc(c.name)}</div>
+                                <span class="section-count">${items.length} Tautan</span>
+                            </div>
+                            <div class="grid">${items.map(l => cardHTML(l, c)).join('')}</div>
+                        </section>`;
+            });
+            wrap.innerHTML = html;
+
+            const nr = document.getElementById('noResults');
+            nr.style.display = total === 0 ? 'block' : 'none';
+            document.getElementById('noResultsText').textContent = q !== ''
+                ? `Tidak ada tautan yang cocok dengan "${q}". Coba kata kunci lain.`
+                : 'Belum ada data. Masuk ke halaman Admin (ikon gembok di atas) lalu klik "Impor Data Awal".';
+        }
+
+        // ---------- Interaksi ----------
+        document.getElementById('tabs').addEventListener('click', e => {
+            const b = e.target.closest('.tab-btn'); if (!b) return;
+            activeCat = b.dataset.cat; renderTabs(); renderContent();
+            document.getElementById('content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', renderContent);
+
+        document.addEventListener('keydown', e => {
+            const s = document.getElementById('searchInput');
+            if (e.key === '/' && document.activeElement !== s) { e.preventDefault(); s.focus(); }
+        });
+
+        // Jam & tanggal
+        function updateDateTime() {
+            const now = new Date();
+            const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+            document.getElementById('dateText').textContent = days[now.getDay()] + ', ' +
+                now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+            document.getElementById('timeText').textContent =
+                now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true });
+        }
+        setInterval(updateDateTime, 1000); updateDateTime();
+
+        // Tema
+        const root = document.documentElement;
+        const themeIcon = document.getElementById('themeIcon');
+        const setIcon = () => themeIcon.className = root.getAttribute('data-theme') === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        document.getElementById('themeBtn').addEventListener('click', () => {
+            const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            localStorage.setItem('jk-theme', next); setIcon();
+        });
+        setIcon();
+
+        // Tombol ke atas
+        const toTop = document.getElementById('toTop');
+        window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 500));
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Render awal
+        applySettings(); render();
+    </script>
+</body>
+</html>

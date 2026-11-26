@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — ADM Desa Jangkang</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --bg1:#0a0f1e; --bg2:#111c36; --text:#f1f5f9; --muted:#94a3b8;
+            --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+            --border:rgba(255,255,255,.12); --input:rgba(255,255,255,.07);
+            --blue:#3b82f6; --green:#34d399; --red:#f87171;
+        }
+        body { font-family:'Plus Jakarta Sans',system-ui,sans-serif; color:var(--text); min-height:100vh;
+               background:linear-gradient(150deg,var(--bg1),var(--bg2)); }
+        ::selection { background:rgba(59,130,246,.35); }
+
+        /* ---- LOGIN ---- */
+        .login-screen { min-height:100vh; display:grid; place-items:center; padding:20px; }
+        .login-card { width:100%; max-width:400px; background:var(--glass); border:1px solid var(--border);
+                      border-radius:22px; padding:34px 30px; backdrop-filter:blur(16px);
+                      box-shadow:0 25px 60px rgba(1,4,15,.5); text-align:center; }
+        .login-card img { width:64px; height:64px; border-radius:16px; background:#fff; padding:4px; margin-bottom:14px; }
+        .login-card h1 { font-size:1.3rem; font-weight:800; }
+        .login-card > p { color:var(--muted); font-size:.85rem; margin:6px 0 22px; }
+        .field { width:100%; padding:13px 16px; margin-bottom:12px; border-radius:12px; border:1px solid var(--border);
+                 background:var(--input); color:var(--text); font-family:inherit; font-size:.92rem; outline:none; transition:.25s; }
+        .field:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(59,130,246,.2); }
+        .pw-wrap { position:relative; }
+        .pw-wrap button { position:absolute; right:6px; top:50%; transform:translateY(-50%); border:0; background:transparent;
+                          color:var(--muted); cursor:pointer; padding:8px; }
+        .login-error { background:rgba(248,113,113,.12); border:1px solid rgba(248,113,113,.35); color:#fca5a5;
+                       font-size:.8rem; padding:10px 14px; border-radius:10px; margin-bottom:12px; text-align:left; }
+        .hint { color:var(--muted); font-size:.72rem; margin-top:16px; line-height:1.5; }
+        .back-link { color:var(--muted); font-size:.8rem; text-decoration:none; display:inline-block; margin-top:10px; }
+        .back-link:hover { color:var(--text); }
+
+        /* ---- TOMBOL ---- */
+        .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:12px; border:0;
+               font-family:inherit; font-weight:700; font-size:.9rem; cursor:pointer; transition:.25s; text-decoration:none; }
+        .btn-primary { background:linear-gradient(135deg,#2563eb,#60a5fa); color:#fff; width:100%; justify-content:center;
+                       box-shadow:0 8px 20px rgba(37,99,235,.4); }
+        .btn-primary:hover { transform:translateY(-2px); }
+        .btn-sm { padding:9px 16px; font-size:.82rem; width:auto; }
+        .btn-ghost { background:var(--glass); color:var(--text); border:1px solid var(--border); }
+        .btn-green { background:linear-gradient(135deg,#059669,#34d399); color:#fff; width:auto; }
+        .icon-btn { width:34px; height:34px; border-radius:9px; border:1px solid var(--border); background:var(--glass);
+                    color:var(--muted); cursor:pointer; display:grid; place-items:center; transition:.2s; font-size:.82rem; }
+        .icon-btn.edit:hover { color:#60a5fa; border-color:#60a5fa; }
+        .icon-btn.del:hover  { color:#f87171; border-color:#f87171; }
+
+        /* ---- PANEL ---- */
+        .admin-nav { position:sticky; top:0; z-index:40; backdrop-filter:blur(18px); background:rgba(10,15,30,.75);
+                     border-bottom:1px solid var(--border); }
+        .admin-nav-inner { max-width:1050px; margin:0 auto; display:flex; align-items:center; gap:12px; padding:12px 20px; flex-wrap:wrap; }
+        .admin-nav img { width:40px; height:40px; border-radius:11px; background:#fff; padding:3px; }
+        .admin-nav .brand-t { font-weight:800; font-size:.98rem; margin-right:auto; }
+        .user-chip { font-size:.72rem; color:#93c5fd; background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.3);
+                     padding:5px 12px; border-radius:999px; font-weight:600; max-width:220px; overflow:hidden;
+                     text-overflow:ellipsis; white-space:nowrap; }
+
+        .admin-wrap { max-width:1050px; margin:0 auto; padding:26px 20px 60px; }
+        .admin-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
+        .admin-tabs button { padding:11px 20px; border-radius:12px; border:1px solid var(--border); background:var(--glass);
+                             color:var(--muted); font-family:inherit; font-weight:700; font-size:.86rem; cursor:pointer; transition:.25s; }
+        .admin-tabs button:hover { color:var(--text); }
+        .admin-tabs button.active { color:#fff; background:linear-gradient(135deg,#2563eb,#60a5fa); border-color:transparent;
+                                    box-shadow:0 8px 20px rgba(37,99,235,.4); }
+        .pane { display:none; animation:fadeUp .35s ease; }
+        .pane.active { display:block; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+
+        .form-card { background:var(--glass); border:1px solid var(--border); border-radius:18px; padding:22px; margin-bottom:22px; backdrop-filter:blur(12px); }
+        .form-card h3 { font-size:1rem; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+        .form-card h3 i { color:#60a5fa; }
+        .form-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+        .form-grid .full { grid-column:1/-1; }
+        label.fl { font-size:.72rem; font-weight:700; color:var(--muted); display:block; margin-bottom:5px; text-transform:uppercase; letter-spacing:.05em; }
+        textarea.field { resize:vertical; min-height:70px; }
+        input[type=color].field { padding:6px; height:48px; cursor:pointer; }
+        .form-actions { grid-column:1/-1; display:flex; gap:10px; }
+
+        .group-head { display:flex; align-items:center; gap:10px; margin:22px 0 10px; }
+        .group-dot { width:34px; height:34px; border-radius:10px; display:grid; place-items:center; color:#fff; font-size:.85rem; }
+        .group-head b { font-size:.95rem; }
+        .group-head .cnt { margin-left:auto; font-size:.7rem; color:var(--muted); font-weight:700; }
+        .row-item { display:flex; align-items:center; gap:12px; background:var(--glass); border:1px solid var(--border);
+                    border-radius:14px; padding:12px 16px; margin-bottom:8px; transition:.25s; }
+        .row-item:hover { background:var(--glass-strong); }
+        .row-icon { width:38px; height:38px; flex-shrink:0; border-radius:10px; display:grid; place-items:center; color:#fff; font-size:.9rem; }
+        .row-body { flex:1; min-width:0; }
+        .row-body b { font-size:.86rem; display:block; }
+        .row-body span { font-size:.7rem; color:var(--muted); word-break:break-all; }
+        .row-actions { display:flex; gap:6px; flex-shrink:0; }
+        .swatch { width:38px; height:38px; flex-shrink:0; border-radius:10px; }
+
+        .info-box { background:rgba(59,130,246,.08); border:1px solid rgba(59,130,246,.25); border-radius:14px;
+                    padding:16px 20px; font-size:.85rem; color:#bfdbfe; line-height:1.7; margin-bottom:16px; }
+        .danger-box { background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.25); border-radius:14px;
+                      padding:16px 20px; font-size:.85rem; color:#fecaca; line-height:1.7; }
+        .stat-inline { display:inline-flex; align-items:center; gap:8px; background:var(--glass); border:1px solid var(--border);
+                       border-radius:12px; padding:10px 16px; margin:0 8px 8px 0; font-size:.85rem; font-weight:700; }
+        .stat-inline i { color:#60a5fa; }
+
+        .toast { position:fixed; left:50%; bottom:26px; transform:translate(-50%,80px); z-index:99;
+                 background:#059669; color:#fff; font-weight:700; font-size:.85rem; padding:13px 24px;
+                 border-radius:12px; opacity:0; transition:.35s; pointer-events:none; box-shadow:0 12px 30px rgba(0,0,0,.4); }
+        .toast.show { transform:translate(-50%,0); opacity:1; }
+        .toast.err { background:#dc2626; }
+
+        .fatal { min-height:100vh; display:grid; place-items:center; text-align:center; padding:20px; color:#fca5a5; }
+        @media (max-width:640px) { .form-grid { grid-template-columns:1fr; } .user-chip { display:none; } }
+    </style>
+</head>
+<body>
+
+    <!-- ============ LOGIN VIEW ============ -->
+    <div class="login-screen" id="loginView">
+        <div class="login-card">
+            <img src="logo.png" alt="Logo">
+            <h1>Admin Portal Desa Jangkang</h1>
+            <p>Masuk untuk mengelola tautan, kategori &amp; konten situs</p>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" class="field" placeholder="Email admin" required autocomplete="username">
+                <div class="pw-wrap">
+                    <input type="password" id="loginPass" class="field" placeholder="Password" required autocomplete="current-password" style="padding-right:44px;">
+                    <button type="button" id="pwToggle" aria-label="Lihat password"><i class="far fa-eye"></i></button>
+                </div>
+                <div class="login-error" id="loginError" hidden></div>
+                <button type="submit" class="btn btn-primary" id="loginBtn"><i class="fas fa-right-to-bracket"></i> Masuk</button>
+            </form>
+            <p class="hint">Akun admin dibuat lewat <b>Firebase Console → Authentication → Users</b>.<br>
+                Gunakan Live Server / hosting, hindari membuka via file:// .</p>
+            <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Kembali ke situs</a>
+        </div>
+    </div>
+
+    <!-- ============ PANEL VIEW ============ -->
+    <div id="panelView" hidden>
+        <nav class="admin-nav">
+            <div class="admin-nav-inner">
+                <img src="logo.png" alt="Logo">
+                <span class="brand-t">Panel Admin Desa Jangkang</span>
+                <span class="user-chip" id="userChip">—</span>
+                <a class="btn btn-ghost btn-sm" href="index.html" target="_blank"><i class="fas fa-eye"></i> Lihat Situs</a>
+                <button class="btn btn-ghost btn-sm" id="logoutBtn"><i class="fas fa-right-from-bracket"></i> Keluar</button>
+            </div>
+        </nav>
+
+        <main class="admin-wrap">
+            <div class="admin-tabs">
+                <button data-pane="links" class="active"><i class="fas fa-link"></i> Tautan</button>
+                <button data-pane="cats"><i class="fas fa-layer-group"></i> Kategori / Tab</button>
+                <button data-pane="settings"><i class="fas fa-gear"></i> Pengaturan Situs</button>
+                <button data-pane="data"><i class="fas fa-database"></i> Data</button>
+            </div>
+
+            <!-- ===== PANE TAUTAN ===== -->
+            <section class="pane active" id="pane-links">
+                <div class="form-card">
+                    <h3><i class="fas fa-plus-circle"></i> <span id="linkFormTitle">Tambah Tautan Baru</span></h3>
+                    <form id="linkForm" class="form-grid">
+                        <div>
+                            <label class="fl">Kategori</label>
+                            <select id="linkCat" class="field" required></select>
+                        </div>
+                        <div>
+                            <label class="fl">Urutan tampil</label>
+                            <input type="number" id="linkOrder" class="field" placeholder="1" min="1">
+                        </div>
+                        <div class="full">
+                            <label class="fl">Judul tautan</label>
+                            <input type="text" id="linkTitle" class="field" placeholder="Contoh: Perencanaan APBDes TA. 2026" required>
+                        </div>
+                        <div class="full">
+                            <label class="fl">URL / alamat</label>
+                            <input type="text" id="linkUrl" class="field" placeholder="https://... atau PetaDesa.html" required>
+                        </div>
+                        <div>
+                            <label class="fl">Ikon Font Awesome</label>
+                            <input type="text" id="linkIcon" class="field" list="iconList" placeholder="fa-globe">
+                            <datalist id="iconList">
+                                <option value="fa-globe"></option><option value="fa-link"></option><option value="fa-map"></option>
+                                <option value="fa-clipboard-check"></option><option value="fa-clipboard-list"></option>
+                                <option value="fa-file-excel"></option><option value="fa-file-pdf"></option><option value="fa-file-lines"></option>
+                                <option value="fa-folder"></option><option value="fa-folder-open"></option><option value="fa-envelope"></option>
+                                <option value="fa-graduation-cap"></option><option value="fa-id-card"></option><option value="fa-bullseye"></option>
+                                <option value="fa-circle-info"></option><option value="fa-fingerprint"></option><option value="fa-desktop"></option>
+                                <option value="fa-coins"></option><option value="fa-truck"></option><option value="fa-database"></option>
+                                <option value="fa-shield-halved"></option><option value="fa-gavel"></option><option value="fa-book"></option>
+                                <option value="fa-box-archive"></option><option value="fa-file-signature"></option>
+                                <option value="fa-envelope-open-text"></option><option value="fa-hourglass-half"></option>
+                                <option value="fa-chart-line"></option><option value="fa-cubes"></option><option value="fa-rocket"></option>
+                                <option value="fa-users"></option><option value="fa-newspaper"></option><option value="fa-phone"></option>
+                                <option value="fab fa-google-drive"></option><option value="fab fa-whatsapp"></option>
+                                <option value="fab fa-facebook"></option><option value="fab fa-instagram"></option>
+                                <option value="fab fa-youtube"></option>
+                            </datalist>
+                        </div>
+                        <div>
+                            <label class="fl">Deskripsi singkat</label>
+                            <input type="text" id="linkDesc" class="field" placeholder="Opsional">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-sm" id="linkSubmit"><i class="fas fa-floppy-disk"></i> Simpan Tautan</button>
+                            <button type="button" class="btn btn-ghost btn-sm" id="linkCancel" hidden><i class="fas fa-xmark"></i> Batal Edit</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="linksAdminList"></div>
+            </section>
+
+            <!-- ===== PANE KATEGORI ===== -->
+            <section class="pane" id="pane-cats">
+                <div class="form-card">
+                    <h3><i class="fas fa-plus-circle"></i> <span id="catFormTitle">Tambah Kategori (Tab) Baru</span></h3>
+                    <form id="catForm" class="form-grid">
+                        <div>
+                            <label class="fl">Nama kategori</label>
+                            <input type="text" id="catName" class="field" placeholder="Contoh: Layanan Publik" required>
+                        </div>
+                        <div>
+                            <label class="fl">Urutan</label>
+                            <input type="number" id="catOrder" class="field" placeholder="1" min="1">
+                        </div>
+                        <div>
+                            <label class="fl">Ikon</label>
+                            <input type="text" id="catIcon" class="field" list="iconList" placeholder="fa-folder-open">
+                        </div>
+                        <div></div>
+                        <div>
+                            <label class="fl">Warna 1</label>
+                            <input type="color" id="catColor1" class="field" value="#60a5fa">
+                        </div>
+                        <div>
+                            <label class="fl">Warna 2</label>
+                            <input type="color" id="catColor2" class="field" value="#2563eb">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-sm" id="catSubmit"><i class="fas fa-floppy-disk"></i> Simpan Kategori</button>
+                            <button type="button" class="btn btn-ghost btn-sm" id="catCancel" hidden><i class="fas fa-xmark"></i> Batal Edit</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="catsAdminList"></div>
+            </section>
+
+            <!-- ===== PANE PENGATURAN ===== -->
+            <section class="pane" id="pane-settings">
+                <div class="form-card">
+                    <h3><i class="fas fa-gear"></i> Teks Tampilan Situs</h3>
+                    <form id="settingsForm" class="form-grid">
+                        <div class="full"><label class="fl">Judul situs (tab browser &amp; navbar)</label>
+                            <input type="text" id="setTitle" class="field"></div>
+                        <div class="full"><label class="fl">Judul hero (tengah atas)</label>
+                            <input type="text" id="setHeroTitle" class="field"></div>
+                        <div><label class="fl">Kata yang diberi efek gradien</label>
+                            <input type="text" id="setHeroHighlight" class="field" placeholder="Portal Digital"></div>
+                        <div></div>
+                        <div class="full"><label class="fl">Deskripsi hero</label>
+                            <textarea id="setHeroSub" class="field"></textarea></div>
+                        <div class="full"><label class="fl">Teks berjalan (marquee)</label>
+                            <textarea id="setMarquee" class="field"></textarea></div>
+                        <div class="full"><label class="fl">Teks footer</label>
+                            <input type="text" id="setFooter" class="field"></div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-floppy-disk"></i> Simpan Pengaturan</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ===== PANE DATA ===== -->
+            <section class="pane" id="pane-data">
+                <div class="info-box">
+                    <b><i class="fas fa-circle-info"></i> Status database Firebase</b><br><br>
+                    <span class="stat-inline"><i class="fas fa-layer-group"></i> <span id="statCats">0</span> Kategori</span>
+                    <span class="stat-inline"><i class="fas fa-link"></i> <span id="statLinks">0</span> Tautan</span>
+                </div>
+                <div class="form-card">
+                    <h3><i class="fas fa-download"></i> Impor Data Awal (Migrasi)</h3>
+                    <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:14px;">
+                        Menambahkan <b>6 kategori + 41 tautan</b> dari situs lama ke Firebase. Data lama tidak dihapus —
+                        tombol ini aman diklik berkali-kali.
+                    </p>
+                    <button class="btn btn-green btn-sm" id="seedBtn"><i class="fas fa-wand-magic-sparkles"></i> Impor Data Awal Sekarang</button>
+                </div>
+                <div class="form-card">
+                    <h3><i class="fas fa-file-export"></i> Cadangan</h3>
+                    <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:14px;">
+                        Unduh seluruh kategori, tautan, dan pengaturan dalam satu file JSON.
+                    </p>
+                    <button class="btn btn-ghost btn-sm" id="exportBtn"><i class="fas fa-cloud-arrow-down"></i> Unduh Cadangan JSON</button>
+                </div>
+                <div class="danger-box">
+                    <b><i class="fas fa-shield-halved"></i> Keamanan</b><br>
+                    Pastikan Firestore Rules sudah dipasang: <code>allow read: if true;</code> dan
+                    <code>allow write: if request.auth != null;</code> — sehingga hanya admin yang login yang bisa mengubah data.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="data-default.js"></script>
+
+    <script>
+        /* ================================================
+           ⚠️ ISI firebaseConfig ANDA DI SINI
+           (harus sama dengan index.html)
+           ================================================ */
+        const firebaseConfig = {
+        apiKey: "AIzaSyAXKugjgU3-ugY-Vy4ubPsWfElKSNLK19w",
+        authDomain: "lawangdjangkang.firebaseapp.com",
+        projectId: "lawangdjangkang",
+        storageBucket: "lawangdjangkang.firebasestorage.app",
+        messagingSenderId: "880336737711",
+        appId: "1:880336737711:web:3c55aa2eecb8b316744b5a",
+        measurementId: "G-V3RXJR2JJN"
+        };
+
+        // ---------- Guard: config belum diisi ----------
+        if (firebaseConfig.apiKey === "ISI_API_KEY_ANDA") {
+            document.body.innerHTML = `<div class="fatal"><div>
+                <h2 style="margin-bottom:10px;"><i class="fas fa-triangle-exclamation"></i> Firebase belum dikonfigurasi</h2>
+                <p>Buka file <b>admin.html</b> dan <b>index.html</b>, isi bagian <code>firebaseConfig</code><br>
+                dengan konfigurasi dari Firebase Console Anda.</p></div></div>`;
+            throw new Error('Firebase config belum diisi');
+        }
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const fsv = firebase.firestore.FieldValue;
+
+        // ---------- State ----------
+        let CATS = [], LINKS = [], SETTINGS = null;
+        let editingLinkId = null, editingCatId = null, listenersOn = false;
+
+        // ---------- Helper UI ----------
+        const $ = id => document.getElementById(id);
+        let toastTimer;
+        function toast(msg, type = 'ok') {
+            const t = $('toast');
+            t.textContent = msg;
+            t.className = 'toast show' + (type === 'err' ? ' err' : '');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+        }
+        function errMsg(e) {
+            const map = {
+                'auth/invalid-email': 'Format email tidak valid.',
+                'auth/user-not-found': 'Akun tidak ditemukan.',
+                'auth/wrong-password': 'Password salah.',
+                'auth/invalid-credential': 'Email atau password salah.',
+                'auth/too-many-requests': 'Terlalu banyak percobaan. Coba lagi beberapa menit lagi.',
+                'auth/network-request-failed': 'Gagal terhubung ke internet.'
+            };
+            return map[e.code] || ('Gagal: ' + (e.message || e));
+        }
+        const sortFn = (a, b) => (a.order || 999) - (a.order || 999) === 0
+            ? String(a.title || a.name || '').localeCompare(String(b.title || b.name || ''))
+            : (a.order || 999) - (b.order || 999);
+        const iconCls = ic => { ic = String(ic || 'fa-link').trim(); return ic.startsWith('fa') ? ic : 'fas ' + ic; };
+        function normUrl(v) {
+            v = String(v).trim();
+            if (/^(https?:\/\/|\/)/i.test(v) || /\.(html?)$/i.test(v)) return v;
+            return 'https://' + v;
+        }
+
+        // ---------- Login / Logout ----------
+        $('pwToggle').addEventListener('click', () => {
+            const p = $('loginPass');
+            p.type = p.type === 'password' ? 'text' : 'password';
+            $('pwToggle').innerHTML = p.type === 'password'
+                ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+        });
+
+        $('loginForm').addEventListener('submit', e => {
+            e.preventDefault();
+            $('loginError').hidden = true;
+            $('loginBtn').disabled = true;
+            auth.signInWithEmailAndPassword($('loginEmail').value.trim(), $('loginPass').value)
+                .catch(err => {
+                    $('loginError').textContent = errMsg(err);
+                    $('loginError').hidden = false;
+                })
+                .finally(() => { $('loginBtn').disabled = false; });
+        });
+
+        $('logoutBtn').addEventListener('click', () => auth.signOut());
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                $('loginView').style.display = 'none';
+                $('panelView').hidden = false;
+                $('userChip').textContent = user.email;
+                startListeners();
+            } else {
+                $('panelView').hidden = true;
+                $('loginView').style.display = 'grid';
+            }
+        });
+
+        // ---------- Listener data ----------
+        function startListeners() {
+            if (listenersOn) return;
+            listenersOn = true;
+            db.collection('categories').onSnapshot(s => {
+                CATS = s.docs.map(d => ({ id: d.id, ...d.data() })).sort(sortFn);
+                renderCatSelect(); renderAdminLinks(); renderAdminCats(); renderStats();
+            });
+            db.collection('links').onSnapshot(s => {
+                LINKS = s.docs.map(d => ({ id: d.id, ...d.data() })).sort(sortFn);
+                renderAdminLinks(); renderAdminCats(); renderStats();
+            });
+            db.collection('settings').doc('site').onSnapshot(doc => {
+                SETTINGS = doc.exists ? doc.data() : {};
+                fillSettingsForm();
+            });
+        }
+
+        // ---------- Tab panel ----------
+        document.querySelectorAll('.admin-tabs button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                $('pane-' + btn.dataset.pane).classList.add('active');
+            });
+        });
+
+        // ---------- CRUD TAUTAN ----------
+        function renderCatSelect() {
+            const sel = $('linkCat');
+            const prev = sel.value;
+            sel.innerHTML = CATS.map(c => `<option value="${c.id}">${c.name}</option>`).join('')
+                || '<option value="">— Buat kategori dulu —</option>';
+            if (prev && CATS.some(c => c.id === prev)) sel.value = prev;
+        }
+
+        function renderAdminLinks() {
+            const wrap = $('linksAdminList');
+            let html = '';
+            CATS.forEach(c => {
+                const items = LINKS.filter(l => l.categoryId === c.id);
+                html += `<div class="group-head">
+                            <div class="group-dot" style="background:linear-gradient(135deg,${c.color1},${c.color2})">
+                                <i class="${iconCls(c.icon)}"></i></div>
+                            <b>${c.name}</b><span class="cnt">${items.length} tautan</span>
+                         </div>`;
+                html += items.map(l => `
+                    <div class="row-item">
+                        <div class="row-icon" style="background:linear-gradient(135deg,${c.color1},${c.color2})">
+                            <i class="${iconCls(l.icon)}"></i></div>
+                        <div class="row-body"><b>${l.title}</b><span>${l.url}</span></div>
+                        <div class="row-actions">
+                            <button class="icon-btn edit" data-edit-link="${l.id}" title="Edit"><i class="fas fa-pen"></i></button>
+                            <button class="icon-btn del" data-del-link="${l.id}" title="Hapus"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>`).join('');
+            });
+            if (!CATS.length) html = '<div class="info-box">Belum ada kategori. Buat kategori terlebih dahulu di tab <b>Kategori / Tab</b>, atau klik <b>Impor Data Awal</b> di tab <b>Data</b>.</div>';
+            wrap.innerHTML = html;
+        }
+
+        function resetLinkForm() {
+            editingLinkId = null;
+            $('linkForm').reset();
+            $('linkFormTitle').textContent = 'Tambah Tautan Baru';
+            $('linkSubmit').innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Tautan';
+            $('linkCancel').hidden = true;
+        }
+
+        $('linkForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const data = {
+                categoryId: $('linkCat').value,
+                title: $('linkTitle').value.trim(),
+                url: normUrl($('linkUrl').value),
+                icon: $('linkIcon').value.trim() || 'fa-link',
+                desc: $('linkDesc').value.trim(),
+                order: Number($('linkOrder').value) || 999
+            };
+            if (!data.categoryId) return toast('Buat kategori terlebih dahulu!', 'err');
+            const p = editingLinkId
+                ? db.collection('links').doc(editingLinkId).update(data)
+                : db.collection('links').add({ ...data, createdAt: fsv.serverTimestamp() });
+            p.then(() => { toast(editingLinkId ? 'Tautan diperbarui ✓' : 'Tautan ditambahkan ✓'); resetLinkForm(); })
+             .catch(err => toast(errMsg(err), 'err'));
+        });
+
+        $('linkCancel').addEventListener('click', resetLinkForm);
+
+        // ---------- CRUD KATEGORI ----------
+        function renderAdminCats() {
+            const wrap = $('catsAdminList');
+            wrap.innerHTML = CATS.map(c => `
+                <div class="row-item">
+                    <div class="swatch" style="background:linear-gradient(135deg,${c.color1},${c.color2})"></div>
+                    <div class="row-body"><b><i class="${iconCls(c.icon)}" style="margin-right:6px;color:${c.color1}"></i>${c.name}</b>
+                        <span>Urutan: ${c.order ?? '-'} · ${LINKS.filter(l => l.categoryId === c.id).length} tautan</span></div>
+                    <div class="row-actions">
+                        <button class="icon-btn edit" data-edit-cat="${c.id}" title="Edit"><i class="fas fa-pen"></i></button>
+                        <button class="icon-btn del" data-del-cat="${c.id}" title="Hapus"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>`).join('') ||
+                '<div class="info-box">Belum ada kategori. Tambahkan di form atas, atau klik <b>Impor Data Awal</b> di tab <b>Data</b>.</div>';
+        }
+
+        function resetCatForm() {
+            editingCatId = null;
+            $('catForm').reset();
+            $('catColor1').value = '#60a5fa';
+            $('catColor2').value = '#2563eb';
+            $('catFormTitle').textContent = 'Tambah Kategori (Tab) Baru';
+            $('catSubmit').innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan Kategori';
+            $('catCancel').hidden = true;
+        }
+
+        $('catForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const data = {
+                name: $('catName').value.trim(),
+                icon: $('catIcon').value.trim() || 'fa-folder-open',
+                color1: $('catColor1').value,
+                color2: $('catColor2').value,
+                order: Number($('catOrder').value) || 999
+            };
+            const p = editingCatId
+                ? db.collection('categories').doc(editingCatId).update(data)
+                : db.collection('categories').add({ ...data, createdAt: fsv.serverTimestamp() });
+            p.then(() => { toast(editingCatId ? 'Kategori diperbarui ✓' : 'Kategori ditambahkan ✓'); resetCatForm(); })
+             .catch(err => toast(errMsg(err), 'err'));
+        });
+
+        $('catCancel').addEventListener('click', resetCatForm);
+
+        // ---------- Aksi edit/hapus (event delegation) ----------
+        document.addEventListener('click', e => {
+            // Edit link
+            const el = e.target.closest('[data-edit-link]');
+            if (el) {
+                const l = LINKS.find(x => x.id === el.dataset.editLink);
+                if (!l) return;
+                editingLinkId = l.id;
+                $('linkCat').value = l.categoryId;
+                $('linkTitle').value = l.title || '';
+                $('linkUrl').value = l.url || '';
+                $('linkIcon').value = l.icon || '';
+                $('linkDesc').value = l.desc || '';
+                $('linkOrder').value = l.order ?? '';
+                $('linkFormTitle').textContent = 'Edit Tautan: ' + l.title;
+                $('linkSubmit').innerHTML = '<i class="fas fa-rotate"></i> Simpan Perubahan';
+                $('linkCancel').hidden = false;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            // Hapus link
+            const dl = e.target.closest('[data-del-link]');
+            if (dl) {
+                const l = LINKS.find(x => x.id === dl.dataset.delLink);
+                if (l && confirm(`Hapus tautan "${l.title}"?`)) {
+                    db.collection('links').doc(l.id).delete()
+                        .then(() => toast('Tautan dihapus ✓'))
+                        .catch(err => toast(errMsg(err), 'err'));
+                }
+                return;
+            }
+            // Edit kategori
+            const ec = e.target.closest('[data-edit-cat]');
+            if (ec) {
+                const c = CATS.find(x => x.id === ec.dataset.editCat);
+                if (!c) return;
+                editingCatId = c.id;
+                $('catName').value = c.name || '';
+                $('catIcon').value = c.icon || '';
+                $('catColor1').value = c.color1 || '#60a5fa';
+                $('catColor2').value = c.color2 || '#2563eb';
+                $('catOrder').value = c.order ?? '';
+                $('catFormTitle').textContent = 'Edit Kategori: ' + c.name;
+                $('catSubmit').innerHTML = '<i class="fas fa-rotate"></i> Simpan Perubahan';
+                $('catCancel').hidden = false;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            // Hapus kategori
+            const dc = e.target.closest('[data-del-cat]');
+            if (dc) {
+                const c = CATS.find(x => x.id === dc.dataset.delCat);
+                if (!c) return;
+                const used = LINKS.filter(l => l.categoryId === c.id).length;
+                if (used > 0) return toast(`Tidak bisa dihapus: masih ada ${used} tautan di kategori ini. Pindahkan/hapus dulu.`, 'err');
+                if (confirm(`Hapus kategori "${c.name}"?`)) {
+                    db.collection('categories').doc(c.id).delete()
+                        .then(() => toast('Kategori dihapus ✓'))
+                        .catch(err => toast(errMsg(err), 'err'));
+                }
+            }
+        });
+
+        // ---------- PENGATURAN ----------
+        function fillSettingsForm() {
+            if ($('setTitle').value && $('setTitle').dataset.touched === '1') return; // jangan timpa saat sedang diedit
+            $('setTitle').value = SETTINGS?.siteTitle ?? DEFAULT_SETTINGS.siteTitle;
+            $('setHeroTitle').value = SETTINGS?.heroTitle ?? DEFAULT_SETTINGS.heroTitle;
+            $('setHeroHighlight').value = SETTINGS?.heroHighlight ?? DEFAULT_SETTINGS.heroHighlight;
+            $('setHeroSub').value = SETTINGS?.heroSubtitle ?? DEFAULT_SETTINGS.heroSubtitle;
+            $('setMarquee').value = SETTINGS?.marquee ?? DEFAULT_SETTINGS.marquee;
+            $('setFooter').value = SETTINGS?.footer ?? DEFAULT_SETTINGS.footer;
+        }
+        ['setTitle','setHeroTitle','setHeroHighlight','setHeroSub','setMarquee','setFooter'].forEach(id =>
+            $(id).addEventListener('input', e => e.target.dataset.touched = '1'));
+
+        $('settingsForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const data = {
+                siteTitle: $('setTitle').value.trim(),
+                heroTitle: $('setHeroTitle').value.trim(),
+                heroHighlight: $('setHeroHighlight').value.trim(),
+                heroSubtitle: $('setHeroSub').value.trim(),
+                marquee: $('setMarquee').value.trim(),
+                footer: $('setFooter').value.trim()
+            };
+            ['setTitle','setHeroTitle','setHeroHighlight','setHeroSub','setMarquee','setFooter'].forEach(id => $(id).dataset.touched = '0');
+            db.collection('settings').doc('site').set(data, { merge: true })
+                .then(() => toast('Pengaturan disimpan ✓'))
+                .catch(err => toast(errMsg(err), 'err'));
+        });
+
+        // ---------- DATA: stats, seed, export ----------
+        function renderStats() {
+            $('statCats').textContent = CATS.length;
+            $('statLinks').textContent = LINKS.length;
+        }
+
+        $('seedBtn').addEventListener('click', async () => {
+            try {
+                const [catSnap, linkSnap] = await Promise.all([
+                    db.collection('categories').get(),
+                    db.collection('links').get()
+                ]);
+                if ((catSnap.size || linkSnap.size) &&
+                    !confirm(`Database sudah berisi ${catSnap.size} kategori & ${linkSnap.size} tautan.\nLanjutkan impor? (Data lama TIDAK dihapus)`)) return;
+
+                toast('Mengimpor data…');
+                const map = {};
+                for (const c of DEFAULT_CATEGORIES) {
+                    const { id: _omit, ...data } = c;
+                    const ref = await db.collection('categories').add({ ...data, createdAt: fsv.serverTimestamp() });
+                    map[c.id] = ref.id;
+                }
+                for (const l of DEFAULT_LINKS) {
+                    await db.collection('links').add({
+                        ...l,
+                        categoryId: map[l.categoryId],
+                        createdAt: fsv.serverTimestamp()
+                    });
+                }
+                toast('Impor selesai! Buka "Lihat Situs" untuk melihat hasilnya ✓');
+            } catch (err) {
+                toast(errMsg(err), 'err');
+            }
+        });
+
+        $('exportBtn').addEventListener('click', () => {
+            const data = {
+                exportedAt: new Date().toISOString(),
+                settings: SETTINGS || DEFAULT_SETTINGS,
+                categories: CATS,
+                links: LINKS
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'backup-desa-jangkang.json';
+            a.click();
+            toast('Cadangan diunduh ✓');
+        });
+    </script>
+</body>
+</html>
