@@ -313,7 +313,7 @@
                 `<button class="tab-btn ${active ? 'active' : ''}" data-cat="${esc(id)}">
                     <i class="${iconCls(icon)}"></i> ${esc(name)} <span class="count">${count}</span>
                 </button>`;
-            let html = btn('all', 'Semua', 'fa-layer-group', LINKS.length, activeCat === 'all');
+            let html = btn('all', 'Semua', 'fas fa-layer-group', LINKS.length, activeCat === 'all');
             CATS.forEach(c => html += btn(c.id, c.name, c.icon, LINKS.filter(l => l.categoryId === c.id).length, activeCat === c.id));
             el.innerHTML = html;
         }
