@@ -138,6 +138,15 @@
         .to-top:hover { background:#2563eb; color:#fff; }
 
         @media (max-width:640px) { .brand-sub,.chip,.search-kbd { display:none; } .hero { padding-top:40px; } .section { margin-top:30px; } }
+        .stat.online > i { color:#34d399; }
+        .stat.online > div > b::after {
+            content:''; display:inline-block; width:7px; height:7px; margin-left:6px;
+            border-radius:50%; background:#34d399; animation:blinkDot 1.6s ease infinite;
+        }
+        @keyframes blinkDot {
+            0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(52,211,153,.5); }
+            50%     { opacity:.45; box-shadow:0 0 0 5px rgba(52,211,153,0); }
+        }
     </style>
 </head>
 <body>
@@ -166,6 +175,8 @@
         <div class="stats">
             <div class="stat"><i class="fas fa-link"></i><div><b id="statLinks">0</b><span>Tautan Aktif</span></div></div>
             <div class="stat"><i class="fas fa-layer-group"></i><div><b id="statCats">0</b><span>Kategori</span></div></div>
+            <div class="stat online"><i class="fas fa-user-group"></i><div><b id="statOnline">—</b><span>Online Sekarang</span></div></div>
+            <div class="stat"><i class="fas fa-eye"></i><div><b id="statVisits">—</b><span>Total Kunjungan</span></div></div>
         </div>
 
         <div class="datetime">
@@ -208,6 +219,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <!-- Data default -->
     <script src="data-default.js"></script>
 
@@ -227,10 +239,13 @@
 
         // ---------- Inisialisasi ----------
         const CONFIG_OK = firebaseConfig.apiKey !== "ISI_API_KEY_ANDA";
-        let db = null, connStatus = CONFIG_OK ? 'connecting' : 'demo';
+        let db = null, rtdb = null, connStatus = CONFIG_OK ? 'connecting' : 'demo';
         if (CONFIG_OK) {
-            try { firebase.initializeApp(firebaseConfig); db = firebase.firestore(); }
-            catch (e) { connStatus = 'error'; }
+            try {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();   // data konten (link/kategori)
+                rtdb = firebase.database();  // statistik realtime (online & kunjungan)
+            } catch (e) { connStatus = 'error'; }
         }
 
         // ---------- State ----------
@@ -401,7 +416,44 @@
         const toTop = document.getElementById('toTop');
         window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 500));
         toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
+       
+        // ================================================================
+        //  STATISTIK LIVE (Firebase Realtime Database)
+        //  - statOnline : pengunjung yang sedang membuka situs (realtime)
+        //  - statVisits : total kunjungan (tersimpan permanen)
+        // ================================================================
+        (function initLiveStats() {
+            const elOnline = document.getElementById('statOnline');
+            const elVisits = document.getElementById('statVisits');
+            if (!rtdb) return; // mode demo → biarkan "—"
+        
+            // ---- Total kunjungan ----
+            const visitsRef = rtdb.ref('stats/visits');
+            visitsRef.on('value', snap => {
+                elVisits.textContent = Number(snap.val() || 0).toLocaleString('id-ID');
+            });
+            // Tambah 1 per sesi browser (refresh di tab yang sama TIDAK dihitung ulang).
+            // Ingin setiap refresh dihitung? Hapus 2 baris sessionStorage di bawah.
+            if (!sessionStorage.getItem('jk-counted')) {
+                sessionStorage.setItem('jk-counted', '1');
+                visitsRef.transaction(v => (v || 0) + 1).catch(() => {});
+            }
+        
+            // ---- Pengunjung online ----
+            const onlineRef = rtdb.ref('stats/online');
+            onlineRef.on('value', snap => {
+                elOnline.textContent = snap.numChildren();
+            });
+        
+            // Daftarkan kehadiran dengan ID unik.
+            // Otomatis DIHAPUS dari database saat tab ditutup / koneksi putus.
+            const meRef = onlineRef.child('v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 9));
+            rtdb.ref('.info/connected').on('value', snap => {
+                if (snap.val() !== true) return;      // belum terhubung
+                meRef.onDisconnect().remove();        // bersih-bersih otomatis
+                meRef.set(firebase.database.ServerValue.TIMESTAMP);
+            });
+        })();
         // Render awal
         applySettings(); render();
     </script>
